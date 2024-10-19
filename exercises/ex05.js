@@ -6,6 +6,27 @@ const Queue = require('../lib/Queue');
 
 function mixQueue(queue) {
   // your code here
+  const dividedSize = queue.size() / 2;
+
+  const firstArr = new Queue();
+  for (let i = 0; i < dividedSize; i++) {
+    firstArr.enqueue(queue.dequeue());
+  }
+
+  const secondArr = new Queue();
+  while (!queue.isEmpty()) {
+    secondArr.enqueue(queue.dequeue());
+  }
+
+  const finalData = new Queue();
+  for (let i = 0; i <= firstArr.size() + secondArr.size(); i++) {
+    finalData.enqueue(firstArr.dequeue());
+    finalData.enqueue(secondArr.dequeue());
+  }
+
+  while (!finalData.isEmpty()) {
+    queue.enqueue(finalData.dequeue());
+  }
 }
 
 const queue = new Queue();
@@ -17,4 +38,4 @@ queue.enqueue(5);
 queue.enqueue(6);
 
 mixQueue(queue);
-console.log(queue.printQueue()); // Output: 1 4 2 5 4 6
+console.log(queue.printQueue()); // Output: 1 4 2 5 3 6
